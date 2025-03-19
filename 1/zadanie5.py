@@ -1,5 +1,4 @@
 import random
-import string
 from collections import defaultdict
 
 def build_model(text, order):
@@ -49,7 +48,7 @@ corpus = hamlet + romeo + wiki
 
 # 📌 Generowanie przybliżeń dla różnych rzędów
 orders = [1, 3, 5]
-length = 5000  # Długość generowanego tekstu
+length = 1_000_000  # Długość generowanego tekstu
 
 for order in orders:
     model = build_model(corpus, order)
@@ -60,5 +59,5 @@ for order in orders:
     avg_len = average_word_length(generated_text)
     
     print(f"\n--- Markov {order}-go rzędu ---")
-    print(generated_text + "\n")  # Podgląd fragmentu
+    print(f"{generated_text[:500]}...\n ...{generated_text[-500:]}\n")  # Podgląd fragmentu
     print(f"Średnia długość słowa: {avg_len:.2f}")
