@@ -57,5 +57,5 @@ def wyliczenieEntropi(tekst, nazwa, rzad=5):
 wikiEn = openFile("daneFolder/norm_wiki_en.txt")
 wyliczenieEntropi(wikiEn, "wikiEn", 6)
 
-wikiLo = openFile("daneFolder/norm_wiki_lo.txt")
+wikiLo = openFile("daneFolder/norm_wiki_la.txt")
 wyliczenieEntropi(wikiLo, "wikiLo", 6)
