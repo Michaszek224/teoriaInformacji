@@ -53,9 +53,30 @@ def wyliczenieEntropi(tekst, nazwa, rzad=5):
 
     for i in range(1, rzad+1):
         print(f"Entropia warunkowa dla {nazwa} rzedu {i}: {entropiaWarunkowa(tekst, i)}")
+    print()
 
 wikiEn = openFile("daneFolder/norm_wiki_en.txt")
 wyliczenieEntropi(wikiEn, "wikiEn", 6)
 
 wikiLo = openFile("daneFolder/norm_wiki_la.txt")
 wyliczenieEntropi(wikiLo, "wikiLo", 6)
+
+sample0 = openFile("daneFolder/sample0.txt")
+wyliczenieEntropi(sample0, "sample0", 6)
+
+sample1 = openFile("daneFolder/sample1.txt")
+wyliczenieEntropi(sample1, "sample1", 6)
+
+sample2 = openFile("daneFolder/sample2.txt")
+wyliczenieEntropi(sample2, "sample2", 6)
+
+sample3 = openFile("daneFolder/sample3.txt")
+wyliczenieEntropi(sample3, "sample3", 6)
+
+sample4 = openFile("daneFolder/sample4.txt")
+wyliczenieEntropi(sample4, "sample4", 6)
+
+sample5 = openFile("daneFolder/sample5.txt")
+wyliczenieEntropi(sample5, "sample5", 6)
+
+#wynik programu:
