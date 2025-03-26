@@ -39,8 +39,8 @@ def entropiaLaczna(tekst, n):
 
 def entropiaWarunkowa(tekst, n):
     """Funkcja obliczająca entropie warunkowa dla danego rzedu n"""
-    laczna = entropiaLaczna(tekst, n)
-    zwykla = entropia(tekst)
+    laczna = entropiaLaczna(tekst, n+1)
+    zwykla = entropiaLaczna(tekst, n)
     return laczna - zwykla
 
 def wyliczenieEntropi(tekst, nazwa, rzad=5):
