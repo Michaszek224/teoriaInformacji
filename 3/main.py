@@ -15,15 +15,6 @@ def entropia(tekst):
         entropia += -p * math.log2(p)
     return entropia
 
-def wyliczenieEntropi(tekst):
-    """Funkcja obliczajaca entropie dla znakow i slow w podanym tekscie"""
-    wikiEnEntropia = entropia(wikiEn)
-    print(f"Entropia dla znakow wiki_en: {wikiEnEntropia}")
-
-    wikiEnSlowa = wikiEn.split()
-    wikiEnEntropiaSlowa = entropia(wikiEnSlowa)
-    print(f"Entropia dla slow wiki_en: {wikiEnEntropiaSlowa}")
-
 def entropiaLaczna(tekst, n):
     """Funkcja obliczajaca entropie laczna"""
     pair_counter = Counter(wikiEn[i:i+n] for i in range(len(wikiEn) - n + 1))
@@ -35,10 +26,24 @@ def entropiaLaczna(tekst, n):
 
 def entropiaWarunkowa(tekst, n):
     """Funkcja obliczająca entropie warunkowa dla danego rzedu n"""
+    laczna = entropiaLaczna(tekst, n)
+    zwykla = entropia(tekst)
+    return laczna - zwykla
 
+def wyliczenieEntropi(tekst, nazwa, rzad=5):
+    """Funkcja obliczajaca entropie dla znakow i slow w podanym tekscie"""
+    wikiEnEntropia = entropia(wikiEn)
+    print(f"Entropia dla znakow {nazwa}: {wikiEnEntropia}")
+
+    wikiEnSlowa = wikiEn.split()
+    wikiEnEntropiaSlowa = entropia(wikiEnSlowa)
+    print(f"Entropia dla slow {nazwa}: {wikiEnEntropiaSlowa}")
+
+    for i in range(1, rzad):
+        print(f"Entropia warunkowa dla {nazwa} rzedu {i}: {entropiaWarunkowa(wikiEn, i)}")
 
 wikiEn = openFile("daneFolder/norm_wiki_en.txt")
-wyliczenieEntropi(wikiEn)
+wyliczenieEntropi(wikiEn, "wikiEn", 6)
 
-for i in range(1, 6):
-    print(f"Entropia laczna dla n={i}: {entropiaLaczna(wikiEn, i)}")
+wikiLo = openFile("daneFolder/norm_wiki_lo.txt")
+wyliczenieEntropi(wikiLo, "wikiLo", 6)
