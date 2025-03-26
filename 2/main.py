@@ -21,23 +21,36 @@ def build_markov_model(words, order=1):
     
     return model
 
-def generate_text(model, order=1, seed=None, length=20):
+def generate_text(model, order=1, seed=None, length=200):
     """ Generuje losowy tekst na podstawie modelu Markova """
     if seed is None:
         seed = random.choice(list(model.keys()))
     elif isinstance(seed, str):
-        seed = tuple([seed]) if order == 1 else tuple(seed.split()[:order])
+        seed_words = seed.split()
+        if len(seed_words) < order:
+            # Szukaj prefiksów zaczynających się od podanych słów
+            possible_prefixes = [p for p in model.keys() if p[:len(seed_words)] == tuple(seed_words)]
+            if possible_prefixes:
+                seed = random.choice(possible_prefixes)
+            else:
+                seed = random.choice(list(model.keys()))
+        else:
+            seed = tuple(seed_words[:order])
     
     output = list(seed)
     
     for _ in range(length - order):
         if seed not in model:
             break
-        next_word = random.choices(list(model[seed].keys()), weights=model[seed].values())[0]
+        next_word = random.choices(
+            list(model[seed].keys()), 
+            weights=model[seed].values()
+        )[0]
         output.append(next_word)
         seed = tuple(output[-order:])
     
     return ' '.join(output)
+
 
 #wczytywanie tekstu
 with open("norm_hamlet.txt") as f:
