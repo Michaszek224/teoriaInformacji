@@ -67,21 +67,45 @@ def decode(text, kod):
     encodedText += odwr[localText]
     return encodedText
 
-def save():
-    pass
+def save(kod, text):
+    """Zapisuje kod do pliku tekstowego, a zakodowany tekst jako binarny"""
+    with open("kod.txt", "w") as f:
+        for letter in kod:
+            f.write(letter + " " + kod[letter] + "\n")
+    with open("text.bin", "wb") as f:
+        text.tofile(f)
+
 
 def load():
-    pass
+    """Laduje kod i tekst z pliku"""
+    kod = {}
+    with open("kod.txt", "r") as f:
+        for line in f:
+            if line[0] == " ":
+                letter = " "
+                code = line[1:].strip()
+                kod[letter] = code
+            else:
+                letter, code = line.split()
+                kod[letter] = code.strip()
+    text = bitarray()
+    with open("text.bin", "rb") as f:
+        text.fromfile(f)
+    return kod, text
 
 path = "sample.text"
 text = openFile(path)
-text = text[:1000]
+# text = text[:1000]
 
 kod = create(text)
 encodedText = encode(text, kod)
 decodedText = decode(encodedText.tolist(), kod)
 
+save(kod, encodedText)
+
 print("Kod:", kod, "\n")
-print("Zakodowany tekst:", encodedText, "\n")
-print("Oryginalny tekst:", text, "\n")
-print("Odkodowany tekst:", decodedText, "\n")
+print("Zakodowany tekst:", encodedText[:100], "\n")
+print("Oryginalny tekst:", text[:100], "\n")
+print("Odkodowany tekst:", decodedText[:100], "\n")
+
+print("Czy tekst jest taki sam?", text == decodedText)
